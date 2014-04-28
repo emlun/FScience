@@ -113,9 +113,9 @@ namespace FScience {
 
             // Selection text below FROM scroll view
             if(SelectedPart is ModuleScienceContainer) {
-                GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ""+((ModuleScienceContainer)SelectedPart).GetScienceCount(), ""+((ModuleScienceContainer)SelectedPart).capacity) : "No Part Selected", GUILayout.Width(300));
+                GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceContainer)SelectedPart).GetScienceCount(), ((ModuleScienceContainer)SelectedPart).capacity) : "No Part Selected", GUILayout.Width(300));
             } else if(SelectedPart is ModuleScienceExperiment) {
-                GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ""+((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1") : "No Part Selected", GUILayout.Width(300));
+                GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1") : "No Part Selected", GUILayout.Width(300));
             }
             GUILayout.EndVertical();
 
@@ -128,7 +128,7 @@ namespace FScience {
             foreach(PartModule sc in scContainers) {
                 var style = sc == SelectedPartTarget ? Resources.ButtonToggledRedStyle : Resources.ButtonStyle;
                 if(sc is ModuleScienceContainer) {
-                    if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, ""+((ModuleScienceContainer)sc).GetScienceCount(), ""+((ModuleScienceContainer)sc).capacity), style, GUILayout.Width(265))) {
+                    if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, ((ModuleScienceContainer)sc).GetScienceCount(), ((ModuleScienceContainer)sc).capacity), style, GUILayout.Width(265))) {
                         SelectedPartTarget = sc;
                     }
                 }
@@ -139,7 +139,7 @@ namespace FScience {
 
             // Selection text below TO scroll view
             if(SelectedPartTarget is ModuleScienceContainer) {
-                GUILayout.Label(SelectedPartTarget != null ? string.Format("{0} {1} /{2}", SelectedPartTarget.part.partInfo.title, ""+((ModuleScienceContainer)SelectedPartTarget).GetScienceCount(), ""+((ModuleScienceContainer)SelectedPartTarget).capacity) : "No Part Selected", GUILayout.Width(300));
+                GUILayout.Label(SelectedPartTarget != null ? string.Format("{0} {1} /{2}", SelectedPartTarget.part.partInfo.title, ((ModuleScienceContainer)SelectedPartTarget).GetScienceCount(), ((ModuleScienceContainer)SelectedPartTarget).capacity) : "No Part Selected", GUILayout.Width(300));
             } else {
                 GUILayout.Label("No Part Selected");
             }
