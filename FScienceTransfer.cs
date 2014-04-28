@@ -56,15 +56,13 @@ namespace FScience {
                 SetPartHighlight(((PartModule)_selectedPartTarget).part, Color.red);
             }
         }
-        private bool sceneCheck;
 
         Rect windowRect  = new Rect(20, 20, 640, 360);
         Rect warningWindowRect = new Rect(20, 20, 320, 120);
-        string portField = "Port number"; // hem... GUILayout. doesn't like numbers... so will have to pass through this...
+
         bool guiMaximized;
         Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
         bool hideMainButton = false;
-        bool warningDisplayed = false;
 
         public void OnGUI() {
             if(!SceneCheck()) {
