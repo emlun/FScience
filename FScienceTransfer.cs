@@ -9,22 +9,16 @@ namespace FScience {
     public class FScienceTransfer : MonoBehaviour {
 
         public FScienceTransfer() {
-
         }
 
         List<PartModule> scContainers;
 
-
         public void OnLevelWasLoaded() {
             LateSetup();
-
         }
         private void LateSetup() {
-
             SceneCheck();
-
         }
-
 
         private Vector2 partScrollViewer = Vector2.zero;
 
@@ -82,17 +76,13 @@ namespace FScience {
             }
             if(guiMaximized) {
                 windowRect = GUI.Window(0, windowRect, MainWindowShow, "Science Transfer");
-
             }
         }
-
-
 
         public void MainWindowShow(int id) {
             FindScienceContainers();
             TransferGUI();
         }
-
 
         public void TransferGUI() {
             GUILayout.BeginVertical();
@@ -123,7 +113,6 @@ namespace FScience {
                 GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ""+((ModuleScienceContainer)SelectedPart).GetScienceCount(), ""+((ModuleScienceContainer)SelectedPart).capacity) : "No Part Selected", GUILayout.Width(300));
             } else if(SelectedPart is ModuleScienceExperiment) {
                 GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ""+((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1") : "No Part Selected", GUILayout.Width(300));
-
             }
             GUILayout.EndVertical();
 
@@ -159,9 +148,6 @@ namespace FScience {
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
 
-
-
-
             if(SelectedPart != null && SelectedPartTarget != null && GUILayout.Button("Transfer")) {
                 TransferScience(SelectedPart, SelectedPartTarget);
             }
@@ -170,8 +156,6 @@ namespace FScience {
 
             GUI.DragWindow();
         }
-
-
 
         private void FindScienceContainers() {
             Vessel v = FlightGlobals.ActiveVessel;
@@ -183,14 +167,9 @@ namespace FScience {
                     if(pm is ModuleScienceContainer || pm is ModuleScienceExperiment) {
                         scContainers.Add((PartModule)pm);
                     }
-
                 }
-
             }
-
-
         }
-
 
         private void TransferScience(PartModule source, PartModule target) {
             ScienceData[] sd;
@@ -202,7 +181,6 @@ namespace FScience {
                     return;
                 }
                 for(i = 0; i < sd.Length; i++) {
-
                     if(target is ModuleScienceContainer) {
                         if(((ModuleScienceContainer)target).AddData(sd[i]))
                             ((ModuleScienceContainer)source).RemoveData(sd[i]);
@@ -212,10 +190,7 @@ namespace FScience {
                         //	if (((ModuleScienceContainer)target).AddData(sd[i]))   // havent found a way to add data to ModuleScienceExperiment
                         //	source.RemoveData(sd[i]);
                     }
-
-
                 }
-
             } else if(source is ModuleScienceExperiment) {
                 sd = ((ModuleScienceExperiment)source).GetData();
                 if(sd == null || sd.Length == 0) {
@@ -232,7 +207,6 @@ namespace FScience {
                     //		source.ResetExperiment();
                 }
             }
-
         }
 
         private void ClearHighlight(Part part) {
@@ -250,18 +224,11 @@ namespace FScience {
         }
 
         public bool SceneCheck() {
-
-
             if(HighLogic.LoadedScene != GameScenes.FLIGHT)
                 return false;
             else
                 return true;
-
-
-
         }
-
-
     }
 }
 
