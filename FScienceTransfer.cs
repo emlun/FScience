@@ -8,7 +8,8 @@ namespace FScience {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class FScienceTransfer : MonoBehaviour {
 
-        List<PartModule> scContainers;
+        List<ModuleScienceContainer> containers;
+        List<ModuleScienceExperiment> experiments;
 
         public void OnLevelWasLoaded() {
             LateSetup();
@@ -17,7 +18,8 @@ namespace FScience {
             SceneCheck();
         }
 
-        private Vector2 partScrollViewer = Vector2.zero;
+        private Vector2 containersScrollViewer = Vector2.zero;
+        private Vector2 experimentsScrollViewer = Vector2.zero;
 
         private Vector3 partTargetScrollViewer = Vector2.zero;
         private PartModule _selectedPart;
@@ -88,58 +90,64 @@ namespace FScience {
             GUILayout.BeginVertical();
             GUILayout.BeginHorizontal();
 
-            // FROM scroll view
             GUILayout.BeginVertical();
 
             GUILayout.Label("From : ");
-            partScrollViewer = GUILayout.BeginScrollView(partScrollViewer, GUILayout.Height(200), GUILayout.Width(300));
+
+            // FROM (experiments) scroll view
+            GUILayout.Label("Experiments : ");
+            experimentsScrollViewer = GUILayout.BeginScrollView(experimentsScrollViewer, GUILayout.Width(300));
             GUILayout.BeginVertical();
-            foreach(PartModule sc in scContainers) {
+            foreach(ModuleScienceExperiment sc in experiments) {
                 var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
-                if(sc is ModuleScienceContainer) {
-                    if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, ""+((ModuleScienceContainer)sc).GetScienceCount(), ""+((ModuleScienceContainer)sc).capacity), style, GUILayout.Width(265))) {
-                        SelectedPart = sc;
-                    }
-                }
-                if(sc is ModuleScienceExperiment) {
-                    if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, ""+((ModuleScienceExperiment)sc).GetScienceCount(), "1"), style, GUILayout.Width(265))) {
-                        SelectedPart = sc;
-                    }
+                if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, sc.GetScienceCount(), "1"), style, GUILayout.Width(265))) {
+                    SelectedPart = sc;
                 }
             }
-
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
 
-            // Selection text below FROM scroll view
-            if(SelectedPart is ModuleScienceContainer) {
-                GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceContainer)SelectedPart).GetScienceCount(), ((ModuleScienceContainer)SelectedPart).capacity) : "No Part Selected", GUILayout.Width(300));
-            } else if(SelectedPart is ModuleScienceExperiment) {
-                GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1") : "No Part Selected", GUILayout.Width(300));
+            // FROM (containers) scroll view
+            GUILayout.Label("Containers : ");
+            containersScrollViewer = GUILayout.BeginScrollView(containersScrollViewer, GUILayout.Width(300));
+            GUILayout.BeginVertical();
+            foreach(ModuleScienceContainer sc in containers) {
+                var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
+                if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, sc.GetScienceCount(), sc.capacity), style, GUILayout.Width(265))) {
+                    SelectedPart = sc;
+                }
             }
+            GUILayout.EndVertical();
+            GUILayout.EndScrollView();
+
             GUILayout.EndVertical();
 
             // TO scroll view
             GUILayout.BeginVertical();
             GUILayout.Label("TO : ");
-            partTargetScrollViewer = GUILayout.BeginScrollView(partTargetScrollViewer, GUILayout.Height(200), GUILayout.Width(300));
+            partTargetScrollViewer = GUILayout.BeginScrollView(partTargetScrollViewer, GUILayout.Width(300));
             GUILayout.BeginVertical();
-
-            foreach(PartModule sc in scContainers) {
+            foreach(ModuleScienceContainer sc in containers) {
                 var style = sc == SelectedPartTarget ? Resources.ButtonToggledRedStyle : Resources.ButtonStyle;
-                if(sc is ModuleScienceContainer) {
-                    if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, ((ModuleScienceContainer)sc).GetScienceCount(), ((ModuleScienceContainer)sc).capacity), style, GUILayout.Width(265))) {
-                        SelectedPartTarget = sc;
-                    }
+                if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, sc.GetScienceCount(), sc.capacity), style, GUILayout.Width(265))) {
+                    SelectedPartTarget = sc;
                 }
             }
-
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
 
-            // Selection text below TO scroll view
+            // FROM Selection text
+            if(SelectedPart is ModuleScienceContainer) {
+                GUILayout.Label(SelectedPart != null ? string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceContainer)SelectedPart).GetScienceCount(), ((ModuleScienceContainer)SelectedPart).capacity) : "No Part Selected", GUILayout.Width(300));
+            } else if(SelectedPart is ModuleScienceExperiment) {
+                GUILayout.Label(SelectedPart != null ? string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1") : "No Part Selected", GUILayout.Width(300));
+            } else {
+                GUILayout.Label("No Part Selected");
+            }
+
+            // TO Selection text
             if(SelectedPartTarget is ModuleScienceContainer) {
-                GUILayout.Label(SelectedPartTarget != null ? string.Format("{0} {1} /{2}", SelectedPartTarget.part.partInfo.title, ((ModuleScienceContainer)SelectedPartTarget).GetScienceCount(), ((ModuleScienceContainer)SelectedPartTarget).capacity) : "No Part Selected", GUILayout.Width(300));
+                GUILayout.Label(SelectedPartTarget != null ? string.Format("TO: {0} {1} /{2}", SelectedPartTarget.part.partInfo.title, ((ModuleScienceContainer)SelectedPartTarget).GetScienceCount(), ((ModuleScienceContainer)SelectedPartTarget).capacity) : "No Part Selected", GUILayout.Width(300));
             } else {
                 GUILayout.Label("No Part Selected");
             }
@@ -158,12 +166,16 @@ namespace FScience {
         private void FindScienceContainers() {
             Vessel v = FlightGlobals.ActiveVessel;
 
-            scContainers = new List<PartModule>();
+            containers = new List<ModuleScienceContainer>();
+            experiments = new List<ModuleScienceExperiment>();
 
             foreach(Part pd in v.parts) {
                 foreach(PartModule pm in pd.Modules) {
-                    if(pm is ModuleScienceContainer || pm is ModuleScienceExperiment) {
-                        scContainers.Add((PartModule)pm);
+                    if(pm is ModuleScienceContainer) {
+                        containers.Add((ModuleScienceContainer)pm);
+                    }
+                    if(pm is ModuleScienceExperiment) {
+                        experiments.Add((ModuleScienceExperiment)pm);
                     }
                 }
             }
