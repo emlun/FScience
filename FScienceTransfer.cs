@@ -88,6 +88,7 @@ namespace FScience {
             GUILayout.BeginVertical();
             GUILayout.BeginHorizontal();
 
+            // FROM scroll view
             GUILayout.BeginVertical();
 
             GUILayout.Label("From : ");
@@ -109,6 +110,8 @@ namespace FScience {
 
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
+
+            // Selection text below FROM scroll view
             if(SelectedPart is ModuleScienceContainer) {
                 GUILayout.Label(SelectedPart != null ? string.Format("{0} {1} /{2}", SelectedPart.part.partInfo.title, ""+((ModuleScienceContainer)SelectedPart).GetScienceCount(), ""+((ModuleScienceContainer)SelectedPart).capacity) : "No Part Selected", GUILayout.Width(300));
             } else if(SelectedPart is ModuleScienceExperiment) {
@@ -116,6 +119,7 @@ namespace FScience {
             }
             GUILayout.EndVertical();
 
+            // TO scroll view
             GUILayout.BeginVertical();
             GUILayout.Label("TO : ");
             partTargetScrollViewer = GUILayout.BeginScrollView(partTargetScrollViewer, GUILayout.Height(200), GUILayout.Width(300));
@@ -132,6 +136,8 @@ namespace FScience {
 
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
+
+            // Selection text below TO scroll view
             if(SelectedPartTarget is ModuleScienceContainer) {
                 GUILayout.Label(SelectedPartTarget != null ? string.Format("{0} {1} /{2}", SelectedPartTarget.part.partInfo.title, ""+((ModuleScienceContainer)SelectedPartTarget).GetScienceCount(), ""+((ModuleScienceContainer)SelectedPartTarget).capacity) : "No Part Selected", GUILayout.Width(300));
             } else {
