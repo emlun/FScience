@@ -133,14 +133,6 @@ namespace FScience {
                         SelectedPartTarget = sc;
                     }
                 }
-                /*
-                    if (sc is ModuleScienceExperiment) {
-                        if (GUILayout.Button(string.Format("{0} {1} /{2}" , sc.part.partInfo.title, ""+((ModuleScienceExperiment)sc).GetScienceCount(),"1"), style, GUILayout.Width(265)))
-                        {
-                            SelectedPartTarget = sc;
-                        }
-                    }
-                    */
             }
 
             GUILayout.EndVertical();
