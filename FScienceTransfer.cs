@@ -26,13 +26,15 @@ namespace FScience {
         private PartModule _selectedPart;
         public PartModule SelectedPart {
             get {
-                if(_selectedPart != null && !FlightGlobals.ActiveVessel.Parts.Contains(((PartModule)_selectedPart).part))
+                if(_selectedPart != null && !FlightGlobals.ActiveVessel.Parts.Contains(((PartModule)_selectedPart).part)) {
                     _selectedPart = null;
+                }
                 return _selectedPart;
             }
             set {
-                if(_selectedPart != null)
+                if(_selectedPart != null) {
                     ClearHighlight(((PartModule)_selectedPart).part);
+                }
                 _selectedPart = value;
                 SetPartHighlight(((PartModule)_selectedPart).part, Color.yellow);
             }
@@ -41,13 +43,15 @@ namespace FScience {
         private PartModule _selectedPartTarget;
         private PartModule SelectedPartTarget {
             get {
-                if(_selectedPartTarget != null && !FlightGlobals.ActiveVessel.Parts.Contains(((PartModule)_selectedPartTarget).part))
+                if(_selectedPartTarget != null && !FlightGlobals.ActiveVessel.Parts.Contains(((PartModule)_selectedPartTarget).part)) {
                     _selectedPartTarget = null;
+                }
                 return _selectedPartTarget;
             }
             set {
-                if(_selectedPartTarget != null)
+                if(_selectedPartTarget != null) {
                     ClearHighlight(((PartModule)_selectedPartTarget).part);
+                }
                 _selectedPartTarget = value;
                 SetPartHighlight(((PartModule)_selectedPartTarget).part, Color.red);
             }
@@ -63,8 +67,9 @@ namespace FScience {
         bool warningDisplayed = false;
 
         public void OnGUI() {
-            if(!SceneCheck())
+            if(!SceneCheck()) {
                 return;
+            }
             Resources.SetupGUI();
             GUI.skin = HighLogic.Skin;
             if(!hideMainButton) {
@@ -140,9 +145,9 @@ namespace FScience {
 
             GUILayout.EndVertical();
             GUILayout.EndScrollView();
-            if(SelectedPartTarget is ModuleScienceContainer)
+            if(SelectedPartTarget is ModuleScienceContainer) {
                 GUILayout.Label(SelectedPartTarget != null ? string.Format("{0} {1} /{2}", SelectedPartTarget.part.partInfo.title, ""+((ModuleScienceContainer)SelectedPartTarget).GetScienceCount(), ""+((ModuleScienceContainer)SelectedPartTarget).capacity) : "No Part Selected", GUILayout.Width(300));
-            else {
+            } else {
                 GUILayout.Label("No Part Selected");
             }
             GUILayout.EndVertical();
@@ -182,10 +187,11 @@ namespace FScience {
                 }
                 for(i = 0; i < sd.Length; i++) {
                     if(target is ModuleScienceContainer) {
-                        if(((ModuleScienceContainer)target).AddData(sd[i]))
+                        if(((ModuleScienceContainer)target).AddData(sd[i])) {
                             ((ModuleScienceContainer)source).RemoveData(sd[i]);
-                        else
+                        } else {
                             Debug.Log("Transfer fail");
+                        }
                     } else if(target is ModuleScienceExperiment) {
                         //	if (((ModuleScienceContainer)target).AddData(sd[i]))   // havent found a way to add data to ModuleScienceExperiment
                         //	source.RemoveData(sd[i]);
@@ -198,10 +204,11 @@ namespace FScience {
                     return;
                 }
                 if(target is ModuleScienceContainer) {
-                    if(((ModuleScienceContainer)target).AddData(sd[0]))
+                    if(((ModuleScienceContainer)target).AddData(sd[0])) {
                         ((ModuleScienceExperiment)source).ResetExperiment();
-                    else
+                    } else {
                         Debug.Log("Transfer fail");
+                    }
                 } else if(target is ModuleScienceExperiment) {
                     //	if (((ModuleScienceContainer)target).AddData(sd[i]))  // havent found a way to add data to ModuleScienceExperiment
                     //		source.ResetExperiment();
@@ -224,10 +231,11 @@ namespace FScience {
         }
 
         public bool SceneCheck() {
-            if(HighLogic.LoadedScene != GameScenes.FLIGHT)
+            if(HighLogic.LoadedScene != GameScenes.FLIGHT) {
                 return false;
-            else
+            } else {
                 return true;
+            }
         }
     }
 }
