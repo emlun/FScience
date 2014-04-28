@@ -154,7 +154,7 @@ namespace FScience {
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
 
-            if(SelectedPart != null && SelectedPartTarget != null && GUILayout.Button("Transfer")) {
+            if(SelectedPart != null && SelectedPartTarget != null && SelectedPart.part != SelectedPartTarget.part && GUILayout.Button("Transfer")) {
                 TransferScience(SelectedPart, SelectedPartTarget);
             }
 
