@@ -8,9 +8,6 @@ namespace FScience {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class FScienceTransfer : MonoBehaviour {
 
-        public FScienceTransfer() {
-        }
-
         List<PartModule> scContainers;
 
         public void OnLevelWasLoaded() {
