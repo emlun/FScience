@@ -194,8 +194,9 @@ namespace FScience {
                     return;
                 }
                 if(target is ModuleScienceContainer) {
-                    if(!((ModuleScienceContainer)target).AddData(sd[0])) {
-                        ((ModuleScienceExperiment)source).ResetExperiment();
+                    if(((ModuleScienceContainer)target).AddData(sd[0])) {
+                        ((ModuleScienceExperiment)source).DumpData(sd[0]);
+                    } else {
                         Debug.Log("Transfer fail");
                     }
                 }
