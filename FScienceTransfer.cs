@@ -184,9 +184,6 @@ namespace FScience {
                         } else {
                             Debug.Log("Transfer fail");
                         }
-                    } else if(target is ModuleScienceExperiment) {
-                        //	if (((ModuleScienceContainer)target).AddData(sd[i]))   // havent found a way to add data to ModuleScienceExperiment
-                        //	source.RemoveData(sd[i]);
                     }
                 }
             } else if(source is ModuleScienceExperiment) {
@@ -201,9 +198,6 @@ namespace FScience {
                     } else {
                         Debug.Log("Transfer fail");
                     }
-                } else if(target is ModuleScienceExperiment) {
-                    //	if (((ModuleScienceContainer)target).AddData(sd[i]))  // havent found a way to add data to ModuleScienceExperiment
-                    //		source.ResetExperiment();
                 }
             }
         }
