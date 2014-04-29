@@ -39,20 +39,20 @@ namespace FScience {
             }
         }
 
-        private PartModule _selectedPartTarget;
-        private PartModule SelectedPartTarget {
+        private ModuleScienceContainer _selectedPartTarget;
+        private ModuleScienceContainer SelectedPartTarget {
             get {
-                if(_selectedPartTarget != null && !FlightGlobals.ActiveVessel.Parts.Contains(((PartModule)_selectedPartTarget).part)) {
+                if(_selectedPartTarget != null && !FlightGlobals.ActiveVessel.Parts.Contains(_selectedPartTarget.part)) {
                     _selectedPartTarget = null;
                 }
                 return _selectedPartTarget;
             }
             set {
                 if(_selectedPartTarget != null) {
-                    ClearHighlight(((PartModule)_selectedPartTarget).part);
+                    ClearHighlight(_selectedPartTarget.part);
                 }
                 _selectedPartTarget = value;
-                SetPartHighlight(((PartModule)_selectedPartTarget).part, Color.red);
+                SetPartHighlight(_selectedPartTarget.part, Color.red);
             }
         }
 
@@ -146,8 +146,8 @@ namespace FScience {
             }
 
             // TO Selection text
-            if(SelectedPartTarget is ModuleScienceContainer) {
-                GUILayout.Label(SelectedPartTarget != null ? string.Format("TO: {0} {1} /{2}", SelectedPartTarget.part.partInfo.title, ((ModuleScienceContainer)SelectedPartTarget).GetScienceCount(), ((ModuleScienceContainer)SelectedPartTarget).capacity) : "No Part Selected", GUILayout.Width(300));
+            if(SelectedPartTarget != null) {
+                GUILayout.Label(string.Format("TO: {0} {1} /{2}", SelectedPartTarget.part.partInfo.title, SelectedPartTarget.GetScienceCount(), (SelectedPartTarget.capacity), GUILayout.Width(300));
             } else {
                 GUILayout.Label("No Part Selected");
             }
@@ -181,7 +181,7 @@ namespace FScience {
             }
         }
 
-        private void TransferScience(PartModule source, PartModule target) {
+        private void TransferScience(PartModule source, ModuleScienceContainer target) {
             ScienceData[] sd;
             if(source is ModuleScienceContainer) {
                 sd = ((ModuleScienceContainer)source).GetData();
@@ -190,12 +190,10 @@ namespace FScience {
                     return;
                 }
                 foreach(ScienceData data in sd) {
-                    if(target is ModuleScienceContainer) {
-                        if(((ModuleScienceContainer)target).AddData(data)) {
-                            ((ModuleScienceContainer)source).RemoveData(data);
-                        } else {
-                            Debug.Log("Transfer fail");
-                        }
+                    if(target.AddData(data)) {
+                        ((ModuleScienceContainer)source).RemoveData(data);
+                    } else {
+                        Debug.Log("Transfer fail");
                     }
                 }
             } else if(source is ModuleScienceExperiment) {
@@ -204,12 +202,10 @@ namespace FScience {
                     Debug.Log("No data ");
                     return;
                 }
-                if(target is ModuleScienceContainer) {
-                    if(((ModuleScienceContainer)target).AddData(sd[0])) {
-                        ((ModuleScienceExperiment)source).DumpData(sd[0]);
-                    } else {
-                        Debug.Log("Transfer fail");
-                    }
+                if(target.AddData(sd[0])) {
+                    ((ModuleScienceExperiment)source).DumpData(sd[0]);
+                } else {
+                    Debug.Log("Transfer fail");
                 }
             }
         }
