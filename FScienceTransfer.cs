@@ -183,14 +183,13 @@ namespace FScience {
 
         private void TransferScience(PartModule source, PartModule target) {
             ScienceData[] sd;
-            int i;
             if(source is ModuleScienceContainer) {
                 sd = ((ModuleScienceContainer)source).GetData();
                 if(sd == null || sd.Length == 0) {
                     Debug.Log("No data ");
                     return;
                 }
-                for(i = 0; i < sd.Length; i++) {
+                for(int i = 0; i < sd.Length; i++) {
                     if(target is ModuleScienceContainer) {
                         if(((ModuleScienceContainer)target).AddData(sd[i])) {
                             ((ModuleScienceContainer)source).RemoveData(sd[i]);
