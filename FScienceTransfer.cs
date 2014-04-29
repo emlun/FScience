@@ -199,19 +199,35 @@ namespace FScience {
             }
             if(source is ModuleScienceContainer) {
                 foreach(ScienceData data in sd) {
-                    if(target.AddData(data)) {
-                        ((ModuleScienceContainer)source).RemoveData(data);
+                    if(TargetAcceptsData(target, data)) {
+                        if(target.AddData(data)) {
+                            ((ModuleScienceContainer)source).RemoveData(data);
+                        } else {
+                            Debug.Log("Transfer fail");
+                        }
+                    }
+                }
+            } else if(source is ModuleScienceExperiment) {
+                if(TargetAcceptsData(target, sd[0])) {
+                    if(target.AddData(sd[0])) {
+                        ((ModuleScienceExperiment)source).DumpData(sd[0]);
                     } else {
                         Debug.Log("Transfer fail");
                     }
                 }
-            } else if(source is ModuleScienceExperiment) {
-                if(target.AddData(sd[0])) {
-                    ((ModuleScienceExperiment)source).DumpData(sd[0]);
-                } else {
-                    Debug.Log("Transfer fail");
-                }
             }
+        }
+
+        private bool TargetAcceptsData(ModuleScienceContainer target, ScienceData data) {
+            if(target.allowRepeatedSubjects) {
+                Debug.Log(string.Format("Target {0} allows repeated subjects", target.part.partInfo.title));
+                return true;
+            }
+            if(target.HasData(data)) {
+                Debug.Log(string.Format("Target {0} already has data {1} and does not allow repeated subjects", target.part.partInfo.title, data.title));
+                return false;
+            }
+            return true;
         }
 
         private void ClearHighlight(Part part) {
