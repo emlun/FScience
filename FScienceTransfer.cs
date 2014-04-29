@@ -164,11 +164,11 @@ namespace FScience {
         }
 
         private string formatContainer(ModuleScienceContainer container) {
-            return string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, container.GetScienceCount(), container.capacity);
+            return string.Format("{0} - {1} data", container.part.partInfo.title, container.GetScienceCount());
         }
 
         private string formatExperiment(ModuleScienceExperiment experiment) {
-            return string.Format("FROM: {0} {1} /{2}", experiment.part.partInfo.title, experiment.GetScienceCount(), "1");
+            return string.Format("{0} ({1})", experiment.part.partInfo.title, experiment.GetScienceCount() == 0 ? "empty" : experiment.GetScienceCount() + " data");
         }
 
         private void FindScienceContainers() {
