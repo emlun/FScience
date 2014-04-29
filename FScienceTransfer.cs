@@ -155,7 +155,7 @@ namespace FScience {
             GUILayout.EndHorizontal();
 
             if(SelectedPart != null && SelectedPartTarget != null && SelectedPart.part != SelectedPartTarget.part && GUILayout.Button("Transfer")) {
-                TransferScience(SelectedPart, SelectedPartTarget);
+                TransferScience((IScienceDataContainer)SelectedPart, SelectedPartTarget);
             }
 
             GUILayout.EndVertical();
@@ -181,14 +181,13 @@ namespace FScience {
             }
         }
 
-        private void TransferScience(PartModule source, ModuleScienceContainer target) {
-            ScienceData[] sd;
+        private void TransferScience(IScienceDataContainer source, ModuleScienceContainer target) {
+            ScienceData[] sd = source.GetData();
+            if(sd == null || sd.Length == 0) {
+                Debug.Log("No data ");
+                return;
+            }
             if(source is ModuleScienceContainer) {
-                sd = ((ModuleScienceContainer)source).GetData();
-                if(sd == null || sd.Length == 0) {
-                    Debug.Log("No data ");
-                    return;
-                }
                 foreach(ScienceData data in sd) {
                     if(target.AddData(data)) {
                         ((ModuleScienceContainer)source).RemoveData(data);
@@ -197,11 +196,6 @@ namespace FScience {
                     }
                 }
             } else if(source is ModuleScienceExperiment) {
-                sd = ((ModuleScienceExperiment)source).GetData();
-                if(sd == null || sd.Length == 0) {
-                    Debug.Log("No data ");
-                    return;
-                }
                 if(target.AddData(sd[0])) {
                     ((ModuleScienceExperiment)source).DumpData(sd[0]);
                 } else {
