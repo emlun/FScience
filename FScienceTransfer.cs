@@ -138,9 +138,9 @@ namespace FScience {
 
             // FROM Selection text
             if(SelectedPart is ModuleScienceContainer) {
-                GUILayout.Label(SelectedPart != null ? string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceContainer)SelectedPart).GetScienceCount(), ((ModuleScienceContainer)SelectedPart).capacity) : "No Part Selected", GUILayout.Width(300));
+                GUILayout.Label(string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceContainer)SelectedPart).GetScienceCount(), ((ModuleScienceContainer)SelectedPart).capacity), GUILayout.Width(300));
             } else if(SelectedPart is ModuleScienceExperiment) {
-                GUILayout.Label(SelectedPart != null ? string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1") : "No Part Selected", GUILayout.Width(300));
+                GUILayout.Label(string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1"), GUILayout.Width(300));
             } else {
                 GUILayout.Label("No Part Selected");
             }
