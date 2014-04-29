@@ -100,7 +100,7 @@ namespace FScience {
             GUILayout.BeginVertical();
             foreach(ModuleScienceExperiment sc in experiments) {
                 var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
-                if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, sc.GetScienceCount(), "1"), style, GUILayout.Width(265))) {
+                if(GUILayout.Button(formatExperiment(sc), style, GUILayout.Width(265))) {
                     SelectedPart = sc;
                 }
             }
@@ -113,7 +113,7 @@ namespace FScience {
             GUILayout.BeginVertical();
             foreach(ModuleScienceContainer sc in containers) {
                 var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
-                if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, sc.GetScienceCount(), sc.capacity), style, GUILayout.Width(265))) {
+                if(GUILayout.Button(formatContainer(sc), style, GUILayout.Width(265))) {
                     SelectedPart = sc;
                 }
             }
@@ -129,7 +129,7 @@ namespace FScience {
             GUILayout.BeginVertical();
             foreach(ModuleScienceContainer sc in containers) {
                 var style = sc == SelectedPartTarget ? Resources.ButtonToggledRedStyle : Resources.ButtonStyle;
-                if(GUILayout.Button(string.Format("{0} {1} /{2}", sc.part.partInfo.title, sc.GetScienceCount(), sc.capacity), style, GUILayout.Width(265))) {
+                if(GUILayout.Button(formatContainer(sc), style, GUILayout.Width(265))) {
                     SelectedPartTarget = sc;
                 }
             }
@@ -138,16 +138,16 @@ namespace FScience {
 
             // FROM Selection text
             if(SelectedPart is ModuleScienceContainer) {
-                GUILayout.Label(string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceContainer)SelectedPart).GetScienceCount(), ((ModuleScienceContainer)SelectedPart).capacity), GUILayout.Width(300));
+                GUILayout.Label("From: " + formatContainer((ModuleScienceContainer)SelectedPart), GUILayout.Width(300));
             } else if(SelectedPart is ModuleScienceExperiment) {
-                GUILayout.Label(string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, ((ModuleScienceExperiment)SelectedPart).GetScienceCount(), "1"), GUILayout.Width(300));
+                GUILayout.Label("From: " + formatExperiment((ModuleScienceExperiment)SelectedPart), GUILayout.Width(300));
             } else {
                 GUILayout.Label("No Part Selected");
             }
 
             // TO Selection text
             if(SelectedPartTarget != null) {
-                GUILayout.Label(string.Format("TO: {0} {1} /{2}", SelectedPartTarget.part.partInfo.title, SelectedPartTarget.GetScienceCount(), (SelectedPartTarget.capacity), GUILayout.Width(300));
+                GUILayout.Label("To: " + formatContainer(SelectedPartTarget), GUILayout.Width(300));
             } else {
                 GUILayout.Label("No Part Selected");
             }
@@ -161,6 +161,14 @@ namespace FScience {
             GUILayout.EndVertical();
 
             GUI.DragWindow();
+        }
+
+        private string formatContainer(ModuleScienceContainer container) {
+            return string.Format("FROM: {0} {1} /{2}", SelectedPart.part.partInfo.title, container.GetScienceCount(), container.capacity);
+        }
+
+        private string formatExperiment(ModuleScienceExperiment experiment) {
+            return string.Format("FROM: {0} {1} /{2}", experiment.part.partInfo.title, experiment.GetScienceCount(), "1");
         }
 
         private void FindScienceContainers() {
