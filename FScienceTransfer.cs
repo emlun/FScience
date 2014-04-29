@@ -25,17 +25,17 @@ namespace FScience {
         private PartModule _selectedPart;
         public PartModule SelectedPart {
             get {
-                if(_selectedPart != null && !FlightGlobals.ActiveVessel.Parts.Contains(((PartModule)_selectedPart).part)) {
+                if(_selectedPart != null && !FlightGlobals.ActiveVessel.Parts.Contains(_selectedPart.part)) {
                     _selectedPart = null;
                 }
                 return _selectedPart;
             }
             set {
                 if(_selectedPart != null) {
-                    ClearHighlight(((PartModule)_selectedPart).part);
+                    ClearHighlight(_selectedPart.part);
                 }
                 _selectedPart = value;
-                SetPartHighlight(((PartModule)_selectedPart).part, Color.yellow);
+                SetPartHighlight(_selectedPart.part, Color.yellow);
             }
         }
 
