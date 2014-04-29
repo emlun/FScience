@@ -92,10 +92,8 @@ namespace FScience {
 
             GUILayout.BeginVertical();
 
-            GUILayout.Label("From : ");
-
             // FROM (experiments) scroll view
-            GUILayout.Label("Experiments : ");
+            GUILayout.Label("From Experiment:");
             experimentsScrollViewer = GUILayout.BeginScrollView(experimentsScrollViewer, GUILayout.Width(300));
             GUILayout.BeginVertical();
             foreach(ModuleScienceExperiment sc in experiments) {
@@ -108,7 +106,7 @@ namespace FScience {
             GUILayout.EndScrollView();
 
             // FROM (containers) scroll view
-            GUILayout.Label("Containers : ");
+            GUILayout.Label("From Container:");
             containersScrollViewer = GUILayout.BeginScrollView(containersScrollViewer, GUILayout.Width(300));
             GUILayout.BeginVertical();
             foreach(ModuleScienceContainer sc in containers) {
@@ -124,7 +122,7 @@ namespace FScience {
 
             // TO scroll view
             GUILayout.BeginVertical();
-            GUILayout.Label("TO : ");
+            GUILayout.Label("To Container:");
             partTargetScrollViewer = GUILayout.BeginScrollView(partTargetScrollViewer, GUILayout.Width(300));
             GUILayout.BeginVertical();
             foreach(ModuleScienceContainer sc in containers) {
