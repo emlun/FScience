@@ -74,6 +74,10 @@ namespace FScience {
                     guiMaximized = !guiMaximized;
                     windowRect.x = (Screen.width/2) - (windowRect.width/2);
                     windowRect.y = (Screen.height/2) - (windowRect.height/2);
+                    if(!guiMaximized) {
+                        ClearHighlight(SelectedPart.part);
+                        ClearHighlight(SelectedPartTarget.part);
+                    }
                 }
             }
             if(guiMaximized) {
