@@ -189,10 +189,10 @@ namespace FScience {
                     Debug.Log("No data ");
                     return;
                 }
-                for(int i = 0; i < sd.Length; i++) {
+                foreach(ScienceData data in sd) {
                     if(target is ModuleScienceContainer) {
-                        if(((ModuleScienceContainer)target).AddData(sd[i])) {
-                            ((ModuleScienceContainer)source).RemoveData(sd[i]);
+                        if(((ModuleScienceContainer)target).AddData(data)) {
+                            ((ModuleScienceContainer)source).RemoveData(data);
                         } else {
                             Debug.Log("Transfer fail");
                         }
