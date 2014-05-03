@@ -156,6 +156,19 @@ namespace FScience {
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
 
+            GUILayout.BeginHorizontal();
+            if(SelectedPartTarget != null && GUILayout.Button("Transfer from all experiments")) {
+                foreach(ModuleScienceExperiment experiment in experiments) {
+                    TransferScience(experiment, SelectedPartTarget);
+                }
+            }
+            if(SelectedPartTarget != null && GUILayout.Button("Transfer from all containers")) {
+                foreach(ModuleScienceContainer container in containers) {
+                    TransferScience(container, SelectedPartTarget);
+                }
+            }
+            GUILayout.EndHorizontal();
+
             if(SelectedPart != null && SelectedPartTarget != null && SelectedPart.part != SelectedPartTarget.part && GUILayout.Button("Transfer")) {
                 TransferScience((IScienceDataContainer)SelectedPart, SelectedPartTarget);
             }
