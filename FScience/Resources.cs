@@ -17,6 +17,19 @@ namespace FScience {
 
         public static Rect DefaultWindowRect = new Rect(20, 20, 640, 360);
 
+        public static string FromContainerTextPrefix = "From: ";
+        public static string FromContainerViewTitle = "From Container:";
+        public static string FromExperimentViewTitle = "From Experiment:";
+        public static string FromExperimentTextPrefix = "To: ";
+        public static string MainButtonText = "ScT";
+        public static string MainWindowTitle = "Science Transfer";
+        public static string NoneSelectedText = "No Part Selected";
+        public static string ToContainerTextPrefix = "To: ";
+        public static string ToContainerViewTitle = "To Container:";
+        public static string TransferAllContainersButtonText = "Transfer from all containers";
+        public static string TransferAllExperimentsButtonText = "Transfer from all experiments";
+        public static string TransferButtonText = "Transfer";
+
         public static void SetupGUI() {
             GUI.skin = HighLogic.Skin;
             if(WindowStyle == null) {
