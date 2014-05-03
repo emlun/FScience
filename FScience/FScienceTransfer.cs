@@ -92,52 +92,22 @@ namespace FScience {
 
         public void TransferGUI() {
             GUILayout.BeginVertical();
-            GUILayout.BeginHorizontal();
-
-            GUILayout.BeginVertical();
-
-            // FROM (experiments) scroll view
-            GUILayout.Label(Resources.FromExperimentViewTitle);
-            experimentsScrollViewer = GUILayout.BeginScrollView(experimentsScrollViewer, GUILayout.Width(300));
-            GUILayout.BeginVertical();
-            foreach(ModuleScienceExperiment sc in experiments) {
-                var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
-                if(GUILayout.Button(formatExperiment(sc), style, GUILayout.Width(265))) {
-                    SelectedPart = sc;
-                }
-            }
+                GUILayout.BeginHorizontal();
+                    GUILayout.BeginVertical();
+                        AddFromSelectionView();
+                    GUILayout.EndVertical();
+                    GUILayout.BeginVertical();
+                        AddToSelectionView();
+                        AddCurrentSelectionView();
+                    GUILayout.EndVertical();
+                GUILayout.EndHorizontal();
+                AddTransferAllButtons();
+                AddTransferButton();
             GUILayout.EndVertical();
-            GUILayout.EndScrollView();
+            GUI.DragWindow();
+        }
 
-            // FROM (containers) scroll view
-            GUILayout.Label(Resources.FromContainerViewTitle);
-            containersScrollViewer = GUILayout.BeginScrollView(containersScrollViewer, GUILayout.Width(300));
-            GUILayout.BeginVertical();
-            foreach(ModuleScienceContainer sc in containers) {
-                var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
-                if(GUILayout.Button(formatContainer(sc), style, GUILayout.Width(265))) {
-                    SelectedPart = sc;
-                }
-            }
-            GUILayout.EndVertical();
-            GUILayout.EndScrollView();
-
-            GUILayout.EndVertical();
-
-            // TO scroll view
-            GUILayout.BeginVertical();
-            GUILayout.Label(Resources.ToContainerViewTitle);
-            partTargetScrollViewer = GUILayout.BeginScrollView(partTargetScrollViewer, GUILayout.Width(300));
-            GUILayout.BeginVertical();
-            foreach(ModuleScienceContainer sc in containers) {
-                var style = sc == SelectedPartTarget ? Resources.ButtonToggledRedStyle : Resources.ButtonStyle;
-                if(GUILayout.Button(formatContainer(sc), style, GUILayout.Width(265))) {
-                    SelectedPartTarget = sc;
-                }
-            }
-            GUILayout.EndVertical();
-            GUILayout.EndScrollView();
-
+        private void AddCurrentSelectionView() {
             // FROM Selection text
             if(SelectedPart is ModuleScienceContainer) {
                 GUILayout.Label(Resources.FromContainerTextPrefix + formatContainer((ModuleScienceContainer)SelectedPart), GUILayout.Width(300));
@@ -153,10 +123,56 @@ namespace FScience {
             } else {
                 GUILayout.Label(Resources.NoneSelectedText);
             }
-            GUILayout.EndVertical();
-            GUILayout.EndHorizontal();
+        }
 
-            // Transfer all experiments/containers buttons
+        private void AddFromContainerSelectionView() {
+            GUILayout.Label(Resources.FromContainerViewTitle);
+            containersScrollViewer = GUILayout.BeginScrollView(containersScrollViewer, GUILayout.Width(300));
+            GUILayout.BeginVertical();
+            foreach(ModuleScienceContainer sc in containers) {
+                var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
+                if(GUILayout.Button(formatContainer(sc), style, GUILayout.Width(265))) {
+                    SelectedPart = sc;
+                }
+            }
+            GUILayout.EndVertical();
+            GUILayout.EndScrollView();
+        }
+
+        private void AddFromExperimentSelectionView() {
+            GUILayout.Label(Resources.FromExperimentViewTitle);
+            experimentsScrollViewer = GUILayout.BeginScrollView(experimentsScrollViewer, GUILayout.Width(300));
+            GUILayout.BeginVertical();
+            foreach(ModuleScienceExperiment sc in experiments) {
+                var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
+                if(GUILayout.Button(formatExperiment(sc), style, GUILayout.Width(265))) {
+                    SelectedPart = sc;
+                }
+            }
+            GUILayout.EndVertical();
+            GUILayout.EndScrollView();
+        }
+
+        private void AddFromSelectionView() {
+            AddFromExperimentSelectionView();
+            AddFromContainerSelectionView();
+        }
+
+        private void AddToSelectionView() {
+            GUILayout.Label(Resources.ToContainerViewTitle);
+            partTargetScrollViewer = GUILayout.BeginScrollView(partTargetScrollViewer, GUILayout.Width(300));
+            GUILayout.BeginVertical();
+            foreach(ModuleScienceContainer sc in containers) {
+                var style = sc == SelectedPartTarget ? Resources.ButtonToggledRedStyle : Resources.ButtonStyle;
+                if(GUILayout.Button(formatContainer(sc), style, GUILayout.Width(265))) {
+                    SelectedPartTarget = sc;
+                }
+            }
+            GUILayout.EndVertical();
+            GUILayout.EndScrollView();
+        }
+
+        private void AddTransferAllButtons() {
             GUILayout.BeginHorizontal();
             if(SelectedPartTarget != null && GUILayout.Button(Resources.TransferAllExperimentsButtonText)) {
                 TransferAllExperiments();
@@ -165,15 +181,11 @@ namespace FScience {
                 TransferAllContainers();
             }
             GUILayout.EndHorizontal();
-
-            // Main transfer button
+        }
+        private void AddTransferButton() {
             if(SelectedPart != null && SelectedPartTarget != null && SelectedPart.part != SelectedPartTarget.part && GUILayout.Button(Resources.TransferButtonText)) {
                 TransferScience((IScienceDataContainer)SelectedPart, SelectedPartTarget);
             }
-
-            GUILayout.EndVertical();
-
-            GUI.DragWindow();
         }
 
         public void TransferAllContainers() {
