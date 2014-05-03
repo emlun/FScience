@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using System.Text;
-using System.Net;
+
 namespace FScience {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class FScienceTransfer : MonoBehaviour {
