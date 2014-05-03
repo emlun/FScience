@@ -202,6 +202,10 @@ namespace FScience {
         }
 
         private void TransferScience(IScienceDataContainer source, ModuleScienceContainer target) {
+            if(source == null || target == null) {
+                return;
+            }
+
             ScienceData[] sd = source.GetData();
             if(sd == null || sd.Length == 0) {
                 Debug.Log("No data ");
