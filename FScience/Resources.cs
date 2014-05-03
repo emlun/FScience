@@ -1,9 +1,7 @@
 using UnityEngine;
 
-namespace FScience
-{
-	 public static class Resources
-    {
+namespace FScience {
+    public static class Resources {
         public static Texture2D IconOff = new Texture2D(32, 32, TextureFormat.ARGB32, false);
         public static Texture2D IconOn = new Texture2D(32, 32, TextureFormat.ARGB32, false);
 
@@ -17,18 +15,14 @@ namespace FScience
         public static GUIStyle LabelStyleRed;
         public static GUIStyle LabelStyleYellow;
 
-        public static void SetupGUI()
-        {
+        public static void SetupGUI() {
             GUI.skin = HighLogic.Skin;
-            if (WindowStyle == null)
-            {
+            if(WindowStyle == null) {
                 SetStyles();
             }
         }
 
-       
-        public static void SetStyles()
-        {
+        public static void SetStyles() {
             WindowStyle = new GUIStyle(GUI.skin.window);
             IconStyle = new GUIStyle();
 
