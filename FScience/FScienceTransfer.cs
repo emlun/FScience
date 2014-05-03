@@ -20,7 +20,7 @@ namespace FScience {
 
         private Vector2 containersScrollViewScrollPosition = Vector2.zero;
         private Vector2 experimentsScrollViewScrollPosition = Vector2.zero;
-        private Vector3 toScrollViewScrollPosition = Vector2.zero;
+        private Vector2 toScrollViewScrollPosition = Vector2.zero;
 
         private PartModule _selectedPart;
         public PartModule SelectedPart {
