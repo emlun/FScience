@@ -15,10 +15,10 @@ namespace FScience {
             SceneCheck();
         }
 
-        private Vector2 containersScrollViewer = Vector2.zero;
-        private Vector2 experimentsScrollViewer = Vector2.zero;
+        private Vector2 containersScrollViewScrollPosition = Vector2.zero;
+        private Vector2 experimentsScrollViewScrollPosition = Vector2.zero;
+        private Vector3 toScrollViewScrollPosition = Vector2.zero;
 
-        private Vector3 partTargetScrollViewer = Vector2.zero;
         private PartModule _selectedPart;
         public PartModule SelectedPart {
             get {
@@ -127,7 +127,7 @@ namespace FScience {
 
         private void AddFromContainerSelectionView() {
             GUILayout.Label(Resources.FromContainerViewTitle);
-            containersScrollViewer = GUILayout.BeginScrollView(containersScrollViewer, GUILayout.Width(300));
+            containersScrollViewScrollPosition = GUILayout.BeginScrollView(containersScrollViewScrollPosition, GUILayout.Width(300));
             GUILayout.BeginVertical();
             foreach(ModuleScienceContainer sc in containers) {
                 var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
@@ -141,7 +141,7 @@ namespace FScience {
 
         private void AddFromExperimentSelectionView() {
             GUILayout.Label(Resources.FromExperimentViewTitle);
-            experimentsScrollViewer = GUILayout.BeginScrollView(experimentsScrollViewer, GUILayout.Width(300));
+            experimentsScrollViewScrollPosition = GUILayout.BeginScrollView(experimentsScrollViewScrollPosition, GUILayout.Width(300));
             GUILayout.BeginVertical();
             foreach(ModuleScienceExperiment sc in experiments) {
                 var style = sc == SelectedPart ? Resources.ButtonToggledStyle : Resources.ButtonStyle;
@@ -160,7 +160,7 @@ namespace FScience {
 
         private void AddToSelectionView() {
             GUILayout.Label(Resources.ToContainerViewTitle);
-            partTargetScrollViewer = GUILayout.BeginScrollView(partTargetScrollViewer, GUILayout.Width(300));
+            toScrollViewScrollPosition = GUILayout.BeginScrollView(toScrollViewScrollPosition, GUILayout.Width(300));
             GUILayout.BeginVertical();
             foreach(ModuleScienceContainer sc in containers) {
                 var style = sc == SelectedPartTarget ? Resources.ButtonToggledRedStyle : Resources.ButtonStyle;
