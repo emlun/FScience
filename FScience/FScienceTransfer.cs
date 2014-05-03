@@ -155,14 +155,10 @@ namespace FScience {
 
             GUILayout.BeginHorizontal();
             if(SelectedPartTarget != null && GUILayout.Button("Transfer from all experiments")) {
-                foreach(ModuleScienceExperiment experiment in experiments) {
-                    TransferScience(experiment, SelectedPartTarget);
-                }
+                TransferAllExperiments();
             }
             if(SelectedPartTarget != null && GUILayout.Button("Transfer from all containers")) {
-                foreach(ModuleScienceContainer container in containers) {
-                    TransferScience(container, SelectedPartTarget);
-                }
+                TransferAllContainers();
             }
             GUILayout.EndHorizontal();
 
@@ -173,6 +169,18 @@ namespace FScience {
             GUILayout.EndVertical();
 
             GUI.DragWindow();
+        }
+
+        public void TransferAllContainers() {
+            foreach(ModuleScienceContainer container in containers) {
+                TransferScience(container, SelectedPartTarget);
+            }
+        }
+
+        public void TransferAllExperiments() {
+            foreach(ModuleScienceExperiment experiment in experiments) {
+                TransferScience(experiment, SelectedPartTarget);
+            }
         }
 
         private string formatContainer(ModuleScienceContainer container) {
