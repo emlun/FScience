@@ -7,13 +7,16 @@ namespace FScience {
 
         List<ModuleScienceContainer> containers;
         List<ModuleScienceExperiment> experiments;
+        
+        Rect windowRect = new Rect((Screen.width/2) - (Resources.DefaultWindowRect.width/2),
+                                    (Screen.height/2) - (Resources.DefaultWindowRect.height/2),
+                                    Resources.DefaultWindowRect.width,
+                                    Resources.DefaultWindowRect.height);
+        Rect warningWindowRect = new Rect(20, 20, 320, 120);
 
-        public void OnLevelWasLoaded() {
-            LateSetup();
-        }
-        private void LateSetup() {
-            SceneCheck();
-        }
+        bool guiMaximized;
+        Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
+        bool hideMainButton = false;
 
         private Vector2 containersScrollViewScrollPosition = Vector2.zero;
         private Vector2 experimentsScrollViewScrollPosition = Vector2.zero;
@@ -53,15 +56,13 @@ namespace FScience {
             }
         }
 
-        Rect windowRect = new Rect((Screen.width/2) - (Resources.DefaultWindowRect.width/2),
-                                    (Screen.height/2) - (Resources.DefaultWindowRect.height/2),
-                                    Resources.DefaultWindowRect.width,
-                                    Resources.DefaultWindowRect.height);
-        Rect warningWindowRect = new Rect(20, 20, 320, 120);
+        public void OnLevelWasLoaded() {
+            LateSetup();
+        }
 
-        bool guiMaximized;
-        Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
-        bool hideMainButton = false;
+        private void LateSetup() {
+            SceneCheck();
+        }
 
         public void OnGUI() {
             if(!SceneCheck()) {
