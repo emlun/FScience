@@ -12,7 +12,6 @@ namespace FScience {
                                     (Screen.height/2) - (Resources.DefaultWindowRect.height/2),
                                     Resources.DefaultWindowRect.width,
                                     Resources.DefaultWindowRect.height);
-        Rect warningWindowRect = new Rect(20, 20, 320, 120);
 
         bool guiMaximized;
         Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
