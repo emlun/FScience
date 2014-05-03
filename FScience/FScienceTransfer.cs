@@ -70,7 +70,7 @@ namespace FScience {
             Resources.SetupGUI();
             GUI.skin = HighLogic.Skin;
             if(!hideMainButton && GUI.Button(ui_icon_pos, "ScT", GUI.skin.button)) {
-                guiMaximized = !guiMaximized;
+                ToggleGUI();
             }
             if(guiMaximized) {
                 windowRect = GUI.Window(0, windowRect, MainWindowShow, "Science Transfer");
@@ -78,6 +78,10 @@ namespace FScience {
                 ClearHighlight(SelectedPart);
                 ClearHighlight(SelectedPartTarget);
             }
+        }
+
+        public void ToggleGUI() {
+            guiMaximized = !guiMaximized;
         }
 
         public void MainWindowShow(int id) {
