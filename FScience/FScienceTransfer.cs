@@ -156,6 +156,7 @@ namespace FScience {
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
 
+            // Transfer all experiments/containers buttons
             GUILayout.BeginHorizontal();
             if(SelectedPartTarget != null && GUILayout.Button(Resources.TransferAllExperimentsButtonText)) {
                 TransferAllExperiments();
@@ -165,6 +166,7 @@ namespace FScience {
             }
             GUILayout.EndHorizontal();
 
+            // Main transfer button
             if(SelectedPart != null && SelectedPartTarget != null && SelectedPart.part != SelectedPartTarget.part && GUILayout.Button(Resources.TransferButtonText)) {
                 TransferScience((IScienceDataContainer)SelectedPart, SelectedPartTarget);
             }
