@@ -13,7 +13,7 @@ namespace FScience {
                                     Resources.DefaultWindowRect.width,
                                     Resources.DefaultWindowRect.height);
 
-        bool guiMaximized;
+        bool guiMaximized = false;
         Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
         bool hideMainButton = false;
 
