@@ -15,6 +15,8 @@ namespace FScience {
         public static GUIStyle LabelStyleRed;
         public static GUIStyle LabelStyleYellow;
 
+        public static Rect DefaultWindowRect = new Rect(20, 20, 640, 360);
+
         public static void SetupGUI() {
             GUI.skin = HighLogic.Skin;
             if(WindowStyle == null) {

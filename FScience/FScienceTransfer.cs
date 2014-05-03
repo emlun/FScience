@@ -53,7 +53,10 @@ namespace FScience {
             }
         }
 
-        Rect windowRect  = new Rect(20, 20, 640, 360);
+        Rect windowRect = new Rect((Screen.width/2) - (Resources.DefaultWindowRect.width/2),
+                                    (Screen.height/2) - (Resources.DefaultWindowRect.height/2),
+                                    Resources.DefaultWindowRect.width,
+                                    Resources.DefaultWindowRect.height);
         Rect warningWindowRect = new Rect(20, 20, 320, 120);
 
         bool guiMaximized;
@@ -69,8 +72,6 @@ namespace FScience {
             if(!hideMainButton) {
                 if(GUI.Button(ui_icon_pos, "ScT", GUI.skin.button)) {
                     guiMaximized = !guiMaximized;
-                    windowRect.x = (Screen.width/2) - (windowRect.width/2);
-                    windowRect.y = (Screen.height/2) - (windowRect.height/2);
                 }
             }
             if(guiMaximized) {
