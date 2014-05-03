@@ -71,14 +71,13 @@ namespace FScience {
                     guiMaximized = !guiMaximized;
                     windowRect.x = (Screen.width/2) - (windowRect.width/2);
                     windowRect.y = (Screen.height/2) - (windowRect.height/2);
-                    if(!guiMaximized) {
-                        ClearHighlight(SelectedPart);
-                        ClearHighlight(SelectedPartTarget);
-                    }
                 }
             }
             if(guiMaximized) {
                 windowRect = GUI.Window(0, windowRect, MainWindowShow, "Science Transfer");
+            } else {
+                ClearHighlight(SelectedPart);
+                ClearHighlight(SelectedPartTarget);
             }
         }
 
