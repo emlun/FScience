@@ -228,7 +228,7 @@ namespace FScience {
         }
 
         private void TransferScience(IScienceDataContainer source, ModuleScienceContainer target) {
-            if(source == null || target == null) {
+            if(source == null || target == null || source == target) {
                 return;
             }
 
