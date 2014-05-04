@@ -5,18 +5,18 @@ namespace FScience {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class FScienceTransfer : MonoBehaviour {
 
-        bool guiMaximized = false;
-        bool hideMainButton = false;
+        private bool guiMaximized = false;
+        public bool hideMainButton = false;
 
-        List<ModuleScienceContainer> containers;
-        List<ModuleScienceExperiment> experiments;
+        private List<ModuleScienceContainer> containers;
+        private List<ModuleScienceExperiment> experiments;
         
-        Rect windowRect = new Rect((Screen.width/2) - (Resources.DefaultWindowRect.width/2),
+        private Rect windowRect = new Rect((Screen.width/2) - (Resources.DefaultWindowRect.width/2),
                                     (Screen.height/2) - (Resources.DefaultWindowRect.height/2),
                                     Resources.DefaultWindowRect.width,
                                     Resources.DefaultWindowRect.height);
 
-        Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
+        private Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
 
         private Vector2 containersScrollViewScrollPosition = Vector2.zero;
         private Vector2 experimentsScrollViewScrollPosition = Vector2.zero;
