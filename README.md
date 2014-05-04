@@ -12,6 +12,7 @@ Fork of [FScience][spaceport] v0.2. Notable changes:
 - Transfer button isn't shown if target is the same as source
 - Duplicates won't be transferred unless target container accepts them
 - Reset highlights when closing transfer GUI
+- Toolbar support
 
 [spaceport]: http://kerbalspaceport.com/fscience/
 
@@ -19,8 +20,9 @@ Fork of [FScience][spaceport] v0.2. Notable changes:
 Installation
 ============
 
-Copy the DLL file in the Output directory into the "Plugins" directory in your
-KSP installation directory.
+Copy the intact `FScience` directory from the Output directory into `GameData`
+in your KSP installation directory.
+
 
 License
 =======
