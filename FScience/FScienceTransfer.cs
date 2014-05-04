@@ -5,25 +5,25 @@ namespace FScience {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class FScienceTransfer : MonoBehaviour {
 
-        private bool guiMaximized = false;
-        public bool hideMainButton = false;
+        private static bool guiMaximized = false;
+        public static bool hideMainButton = false;
 
-        private List<ModuleScienceContainer> containers;
-        private List<ModuleScienceExperiment> experiments;
+        private static List<ModuleScienceContainer> containers;
+        private static List<ModuleScienceExperiment> experiments;
         
-        private Rect windowRect = new Rect((Screen.width/2) - (Resources.DefaultWindowRect.width/2),
+        private static Rect windowRect = new Rect((Screen.width/2) - (Resources.DefaultWindowRect.width/2),
                                     (Screen.height/2) - (Resources.DefaultWindowRect.height/2),
                                     Resources.DefaultWindowRect.width,
                                     Resources.DefaultWindowRect.height);
 
-        private Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
+        private static Rect ui_icon_pos = new Rect((Screen.width / 2) - 270, Screen.height - 22, 40, 20);
 
-        private Vector2 containersScrollViewScrollPosition = Vector2.zero;
-        private Vector2 experimentsScrollViewScrollPosition = Vector2.zero;
-        private Vector2 toScrollViewScrollPosition = Vector2.zero;
+        private static Vector2 containersScrollViewScrollPosition = Vector2.zero;
+        private static Vector2 experimentsScrollViewScrollPosition = Vector2.zero;
+        private static Vector2 toScrollViewScrollPosition = Vector2.zero;
 
-        private PartModule _selectedPart;
-        public PartModule SelectedPart {
+        private static PartModule _selectedPart;
+        public static PartModule SelectedPart {
             get {
                 if(_selectedPart != null && !FlightGlobals.ActiveVessel.Parts.Contains(_selectedPart.part)) {
                     _selectedPart = null;
@@ -39,8 +39,8 @@ namespace FScience {
             }
         }
 
-        private ModuleScienceContainer _selectedPartTarget;
-        private ModuleScienceContainer SelectedPartTarget {
+        private static ModuleScienceContainer _selectedPartTarget;
+        private static ModuleScienceContainer SelectedPartTarget {
             get {
                 if(_selectedPartTarget != null && !FlightGlobals.ActiveVessel.Parts.Contains(_selectedPartTarget.part)) {
                     _selectedPartTarget = null;
@@ -82,7 +82,7 @@ namespace FScience {
             }
         }
 
-        public void ToggleGUI() {
+        public static void ToggleGUI() {
             guiMaximized = !guiMaximized;
         }
 
@@ -91,7 +91,7 @@ namespace FScience {
             TransferGUI();
         }
 
-        public void TransferGUI() {
+        public static void TransferGUI() {
             GUILayout.BeginVertical();
                 GUILayout.BeginHorizontal();
                     GUILayout.BeginVertical();
@@ -108,7 +108,7 @@ namespace FScience {
             GUI.DragWindow();
         }
 
-        private void AddCurrentSelectionView() {
+        private static void AddCurrentSelectionView() {
             // FROM Selection text
             if(SelectedPart is ModuleScienceContainer) {
                 GUILayout.Label(Resources.FromContainerTextPrefix + formatContainer((ModuleScienceContainer)SelectedPart), GUILayout.Width(300));
@@ -126,7 +126,7 @@ namespace FScience {
             }
         }
 
-        private void AddFromContainerSelectionView() {
+        private static void AddFromContainerSelectionView() {
             GUILayout.Label(Resources.FromContainerViewTitle);
             containersScrollViewScrollPosition = GUILayout.BeginScrollView(containersScrollViewScrollPosition, GUILayout.Width(300));
             GUILayout.BeginVertical();
@@ -140,7 +140,7 @@ namespace FScience {
             GUILayout.EndScrollView();
         }
 
-        private void AddFromExperimentSelectionView() {
+        private static void AddFromExperimentSelectionView() {
             GUILayout.Label(Resources.FromExperimentViewTitle);
             experimentsScrollViewScrollPosition = GUILayout.BeginScrollView(experimentsScrollViewScrollPosition, GUILayout.Width(300));
             GUILayout.BeginVertical();
@@ -154,12 +154,12 @@ namespace FScience {
             GUILayout.EndScrollView();
         }
 
-        private void AddFromSelectionView() {
+        private static void AddFromSelectionView() {
             AddFromExperimentSelectionView();
             AddFromContainerSelectionView();
         }
 
-        private void AddToSelectionView() {
+        private static void AddToSelectionView() {
             GUILayout.Label(Resources.ToContainerViewTitle);
             toScrollViewScrollPosition = GUILayout.BeginScrollView(toScrollViewScrollPosition, GUILayout.Width(300));
             GUILayout.BeginVertical();
@@ -173,7 +173,7 @@ namespace FScience {
             GUILayout.EndScrollView();
         }
 
-        private void AddTransferAllButtons() {
+        private static void AddTransferAllButtons() {
             GUILayout.BeginHorizontal();
             if(SelectedPartTarget != null && GUILayout.Button(Resources.TransferAllExperimentsButtonText)) {
                 TransferAllExperiments();
@@ -183,33 +183,33 @@ namespace FScience {
             }
             GUILayout.EndHorizontal();
         }
-        private void AddTransferButton() {
+        private static void AddTransferButton() {
             if(SelectedPart != null && SelectedPartTarget != null && SelectedPart.part != SelectedPartTarget.part && GUILayout.Button(Resources.TransferButtonText)) {
                 TransferScience((IScienceDataContainer)SelectedPart, SelectedPartTarget);
             }
         }
 
-        public void TransferAllContainers() {
+        public static void TransferAllContainers() {
             foreach(ModuleScienceContainer container in containers) {
                 TransferScience(container, SelectedPartTarget);
             }
         }
 
-        public void TransferAllExperiments() {
+        public static void TransferAllExperiments() {
             foreach(ModuleScienceExperiment experiment in experiments) {
                 TransferScience(experiment, SelectedPartTarget);
             }
         }
 
-        private string formatContainer(ModuleScienceContainer container) {
+        private static string formatContainer(ModuleScienceContainer container) {
             return string.Format("{0} - {1} data", container.part.partInfo.title, container.GetScienceCount());
         }
 
-        private string formatExperiment(ModuleScienceExperiment experiment) {
+        private static string formatExperiment(ModuleScienceExperiment experiment) {
             return string.Format("{0} ({1})", experiment.part.partInfo.title, experiment.GetScienceCount() == 0 ? "empty" : experiment.GetScienceCount() + " data");
         }
 
-        private void FindScienceContainers() {
+        private static void FindScienceContainers() {
             Vessel v = FlightGlobals.ActiveVessel;
 
             containers = new List<ModuleScienceContainer>();
@@ -227,7 +227,7 @@ namespace FScience {
             }
         }
 
-        private void TransferScience(IScienceDataContainer source, ModuleScienceContainer target) {
+        private static void TransferScience(IScienceDataContainer source, ModuleScienceContainer target) {
             if(source == null || target == null) {
                 return;
             }
@@ -259,7 +259,7 @@ namespace FScience {
             }
         }
 
-        private bool TargetAcceptsData(ModuleScienceContainer target, ScienceData data) {
+        private static bool TargetAcceptsData(ModuleScienceContainer target, ScienceData data) {
             if(target.allowRepeatedSubjects) {
                 Debug.Log(string.Format("Target {0} allows repeated subjects", target.part.partInfo.title));
                 return true;
@@ -271,21 +271,21 @@ namespace FScience {
             return true;
         }
 
-        private void ClearHighlight(PartModule partModule) {
+        private static void ClearHighlight(PartModule partModule) {
             if(partModule != null) {
                 partModule.part.SetHighlightDefault();
                 partModule.part.SetHighlight(false);
             }
         }
 
-        private void SetPartHighlight(Part part, Color color) {
+        private static void SetPartHighlight(Part part, Color color) {
             if(part != null) {
                 part.SetHighlightColor(color);
                 part.SetHighlight(true);
             }
         }
 
-        public bool SceneCheck() {
+        public static bool SceneCheck() {
             if(HighLogic.LoadedScene != GameScenes.FLIGHT) {
                 return false;
             } else {
