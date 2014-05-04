@@ -29,7 +29,7 @@ namespace FScience {
             }
             set {
                 if(_selectedPart != null) {
-                    ClearHighlight(_selectedPart.part);
+                    ClearHighlight(_selectedPart);
                 }
                 _selectedPart = value;
                 SetPartHighlight(_selectedPart.part, Color.yellow);
@@ -46,7 +46,7 @@ namespace FScience {
             }
             set {
                 if(_selectedPartTarget != null) {
-                    ClearHighlight(_selectedPartTarget.part);
+                    ClearHighlight(_selectedPartTarget);
                 }
                 _selectedPartTarget = value;
                 SetPartHighlight(_selectedPartTarget.part, Color.red);
@@ -72,8 +72,8 @@ namespace FScience {
                     windowRect.x = (Screen.width/2) - (windowRect.width/2);
                     windowRect.y = (Screen.height/2) - (windowRect.height/2);
                     if(!guiMaximized) {
-                        ClearHighlight(SelectedPart.part);
-                        ClearHighlight(SelectedPartTarget.part);
+                        ClearHighlight(SelectedPart);
+                        ClearHighlight(SelectedPartTarget);
                     }
                 }
             }
@@ -252,10 +252,10 @@ namespace FScience {
             return true;
         }
 
-        private void ClearHighlight(Part part) {
-            if(part != null) {
-                part.SetHighlightDefault();
-                part.SetHighlight(false);
+        private void ClearHighlight(PartModule partModule) {
+            if(partModule != null) {
+                partModule.part.SetHighlightDefault();
+                partModule.part.SetHighlight(false);
             }
         }
 
