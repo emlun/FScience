@@ -1,13 +1,7 @@
-using System;
-using KSP.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
-namespace FScience
-{
-	 public static class Resources
-    {
+
+namespace FScience {
+    public static class Resources {
         public static Texture2D IconOff = new Texture2D(32, 32, TextureFormat.ARGB32, false);
         public static Texture2D IconOn = new Texture2D(32, 32, TextureFormat.ARGB32, false);
 
@@ -21,18 +15,29 @@ namespace FScience
         public static GUIStyle LabelStyleRed;
         public static GUIStyle LabelStyleYellow;
 
-        public static void SetupGUI()
-        {
+        public static Rect DefaultWindowRect = new Rect(20, 20, 640, 360);
+
+        public static string FromContainerTextPrefix = "From: ";
+        public static string FromContainerViewTitle = "From Container:";
+        public static string FromExperimentViewTitle = "From Experiment:";
+        public static string FromExperimentTextPrefix = "To: ";
+        public static string MainButtonText = "ScT";
+        public static string MainWindowTitle = "Science Transfer";
+        public static string NoneSelectedText = "No Part Selected";
+        public static string ToContainerTextPrefix = "To: ";
+        public static string ToContainerViewTitle = "To Container:";
+        public static string TransferAllContainersButtonText = "Transfer from all containers";
+        public static string TransferAllExperimentsButtonText = "Transfer from all experiments";
+        public static string TransferButtonText = "Transfer";
+
+        public static void SetupGUI() {
             GUI.skin = HighLogic.Skin;
-            if (WindowStyle == null)
-            {
+            if(WindowStyle == null) {
                 SetStyles();
             }
         }
 
-       
-        public static void SetStyles()
-        {
+        public static void SetStyles() {
             WindowStyle = new GUIStyle(GUI.skin.window);
             IconStyle = new GUIStyle();
 
