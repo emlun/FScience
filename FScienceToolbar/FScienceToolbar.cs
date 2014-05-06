@@ -19,6 +19,10 @@ namespace FScienceToolbar {
         private IButton transferExperimentsButton;
 
         public void Start() {
+            if(!FScienceTransfer.SceneCheck()) {
+                return;
+            }
+
             if(AddToggleMainWindowButton()) {
                 FScienceTransfer.hideMainButton = true;
             }
